@@ -11,6 +11,7 @@ const io = new Server(server, {
     }
 })
 
+const mensajes = []
 io.on("connection", (socket) => {
     console.log("Alguien se conectó")
     
@@ -21,7 +22,8 @@ io.on("connection", (socket) => {
         // io.emit("mensaje", mensaje)
 
         // A todos excepto a mí
-        socket.broadcast.emit("mensaje", mensaje)
+        mensajes.push(mensaje)
+        io.emit("mensaje", mensajes)
     })
 })
 
