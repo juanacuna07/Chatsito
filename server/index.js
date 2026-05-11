@@ -17,7 +17,11 @@ io.on("connection", (socket) => {
     socket.emit("bienvenida", "Holi UwU")
 
     socket.on("mensaje", (mensaje) => {
-        console.log(mensaje)
+        // A todos los que esten conectados
+        // io.emit("mensaje", mensaje)
+
+        // A todos excepto a mí
+        socket.broadcast.emit("mensaje", mensaje)
     })
 })
 
