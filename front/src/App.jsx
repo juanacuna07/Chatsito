@@ -7,8 +7,8 @@ function App() {
   const [socket, setSocket] = useState()
   const [user, setUser] = useState("")
 
-  useEffect(() => {
-    const newSocket = io("172.20.10.2:3000")
+  useEffect(() => { 
+    const newSocket = io("localhost:3000")
     setSocket(newSocket)
 
     newSocket.on("mensaje", (msg) => {
@@ -22,8 +22,9 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const hora = new Date().toLocaleTimeString()
     // Cómo se envían los mensajes...
-    socket.emit("mensaje", {user, inputMessage}) 
+    socket.emit("mensaje", {user, inputMessage, hora}) 
   }
 
   return (
@@ -33,9 +34,9 @@ function App() {
         <button type="submit">Enviar</button>
       </form>
 
-      { mensajeRecibido.map( mensaje => <div>{mensaje.user}: {mensaje.inputMessage} </div> ) } 
+      { mensajeRecibido.map( mensaje => <div>{mensaje.user}: {mensaje.inputMessage} - {mensaje.hora} </div> ) } 
     </div>
   )
 }
 
-export default App
+export default App 
